@@ -7,7 +7,7 @@ class Palabras(
     @Column(name="palabra")
     var palabra: String,
     @Column(name = "letraempiezo")
-    var letraemp: Char,
+    var letraemp: String,
     @Column(name = "numletras")
     var numletras: Int,
     @Id
