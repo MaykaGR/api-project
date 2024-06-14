@@ -100,7 +100,7 @@ class UsuariosController {
      * @param id el identificador de la entidad "Usuarios" a actualizar
      * @return un mensaje indicando el resultado de la operación de actualización
      */
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     fun updateUser(@RequestBody user: Usuarios, @PathVariable id: String): ResponseEntity<String>{
         val idUser = id.toLong()
         var modification = ser[idUser]
