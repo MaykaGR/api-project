@@ -8,6 +8,12 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
+/**
+ * Controlador REST para manejar solicitudes relacionadas con entidades "Usuarios".
+ *
+ * Este controlador proporciona puntos de acceso para realizar operaciones CRUD
+ * sobre las entidades "Usuarios".
+ */
 @RestController
 @RequestMapping("/api_elnublado/v1/usuarios")
 @CrossOrigin("*")
@@ -17,12 +23,27 @@ class UsuariosController {
     lateinit var ser: UsuariosServiceImpl
 
     //URL -> /api_elnulado/v1/usuarios/
+
+    /**
+     * Obtiene todas las entidades "Usuarios".
+     *
+     * URL -> /api_elnublado/v1/usuarios/
+     *
+     * @return una lista mutable de todas las entidades "Usuarios"
+     */
     @GetMapping("/")
     fun getAll(): ResponseEntity<MutableList<Usuarios>> {
         val usuarios = ser.all
         return ResponseEntity(usuarios,HttpStatus.OK)
     }
 
+
+    /**
+     * Obtiene una entidad "Usuarios" por su identificador.
+     *
+     * @param id el identificador de la entidad "Usuarios"
+     * @return la entidad "Usuarios" con el identificador dado, o una respuesta de error si no se encuentra
+     */
     @GetMapping("/{id}")
     fun getOneUser(@PathVariable id: String): ResponseEntity<Usuarios>{
         val idUser: Long = id.toLong()
@@ -34,6 +55,13 @@ class UsuariosController {
         }
     }
 
+
+    /**
+     * Elimina una entidad "Usuarios" por su identificador.
+     *
+     * @param id el identificador de la entidad "Usuarios" a eliminar
+     * @return un mensaje indicando el resultado de la operación de eliminación
+     */
     @DeleteMapping("/{id}")
     fun deleteOneUser(@PathVariable id: String): ResponseEntity<String>{
         val idUser: Long = id.toLong()
@@ -46,6 +74,13 @@ class UsuariosController {
         }
     }
 
+
+    /**
+     * Inserta una nueva entidad "Usuarios".
+     *
+     * @param user la entidad "Usuarios" a insertar
+     * @return un mensaje indicando el resultado de la operación de inserción
+     */
     @PostMapping("/")
     fun insertUser(@RequestBody user: Usuarios): ResponseEntity<String>{
         var uuser = user
@@ -57,6 +92,14 @@ class UsuariosController {
         return ResponseEntity("Error",HttpStatus.BAD_REQUEST)}
     }
 
+
+    /**
+     * Actualiza una entidad "Usuarios" existente.
+     *
+     * @param user la entidad "Usuarios" a actualizar
+     * @param id el identificador de la entidad "Usuarios" a actualizar
+     * @return un mensaje indicando el resultado de la operación de actualización
+     */
     @PutMapping("/")
     fun updateUser(@RequestBody user: Usuarios, @PathVariable id: String): ResponseEntity<String>{
         val idUser = id.toLong()

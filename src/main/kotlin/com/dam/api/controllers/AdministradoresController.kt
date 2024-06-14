@@ -7,6 +7,14 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+
+
+/**
+ * Controlador REST para manejar solicitudes relacionadas con entidades "Administradores".
+ *
+ * Este controlador proporciona puntos de acceso para realizar operaciones CRUD
+ * sobre las entidades "Administradores".
+ */
 @RestController
 @RequestMapping("/api_elnublado/v1/administradores")
 @CrossOrigin("*")
@@ -15,12 +23,27 @@ class AdministradoresController {
     lateinit var ser: AdministradoresServiceImpl
 
     //URL -> /api_elnublado/v1/administradores/
+
+    /**
+     * Obtiene todas las entidades "Administradores".
+     *
+     * URL -> /api_elnublado/v1/administradores/
+     *
+     * @return una lista mutable de todas las entidades "Administradores"
+     */
     @GetMapping("/")
     fun getAll(): ResponseEntity<MutableList<Administradores>> {
         val administradores = ser.all
         return ResponseEntity(administradores, HttpStatus.OK)
     }
 
+
+    /**
+     * Obtiene una entidad "Administradores" por su identificador.
+     *
+     * @param id el identificador de la entidad "Administradores"
+     * @return la entidad "Administradores" con el identificador dado
+     */
     @GetMapping("/{id}")
     fun getOneAdmin(@PathVariable id: String): ResponseEntity<Administradores> {
         val idAdmin = id.toLong()
@@ -28,6 +51,13 @@ class AdministradoresController {
         return ResponseEntity<Administradores>(administrador, HttpStatus.OK)
     }
 
+
+    /**
+     * Elimina una entidad "Administradores" por su identificador.
+     *
+     * @param id el identificador de la entidad "Administradores" a eliminar
+     * @return un mensaje indicando el resultado de la operación de eliminación
+     */
     @DeleteMapping("/{id}")
     fun deleteOneAdmin(@PathVariable id: String): ResponseEntity<String> {
         val idAdmin = id.toLong()
@@ -40,6 +70,13 @@ class AdministradoresController {
         }
     }
 
+
+    /**
+     * Inserta una nueva entidad "Administradores".
+     *
+     * @param admin la entidad "Administradores" a insertar
+     * @return un mensaje indicando el resultado de la operación de inserción
+     */
     @PostMapping("/")
     fun insertAdmin(@RequestBody admin: Administradores): ResponseEntity<String> {
         var aadmin = admin
@@ -52,6 +89,14 @@ class AdministradoresController {
         }
     }
 
+
+    /**
+     * Actualiza una entidad "Administradores" existente.
+     *
+     * @param admin la entidad "Administradores" a actualizar
+     * @param id el identificador de la entidad "Administradores" a actualizar
+     * @return un mensaje indicando el resultado de la operación de actualización
+     */
     @PutMapping("/{id}")
     fun updateAdmin(@RequestBody admin: Administradores, @PathVariable id: String): ResponseEntity<String> {
         val idAdmin = id.toLong()

@@ -8,6 +8,12 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
+/**
+ * Controlador REST para manejar solicitudes relacionadas con entidades "Palabras".
+ *
+ * Este controlador proporciona puntos de acceso para realizar operaciones CRUD
+ * sobre las entidades "Palabras".
+ */
 @RestController
 @RequestMapping("/api_elnublado/v1/palabras")
 @CrossOrigin("*")
@@ -16,6 +22,14 @@ class PalabrasController {
     lateinit var ser: PalabrasServiceImpl
 
     //URL -> /api_elnublado/v1/palabras/
+
+    /**
+     * Obtiene todas las entidades "Palabras".
+     *
+     * URL -> /api_elnublado/v1/palabras/
+     *
+     * @return una lista mutable de todas las entidades "Palabras"
+     */
     @GetMapping("/")
     fun getAll(): ResponseEntity<MutableList<Palabras>> {
         val palabras = ser.all
@@ -23,6 +37,13 @@ class PalabrasController {
     }
 
 
+
+    /**
+     * Obtiene una entidad "Palabras" por su identificador.
+     *
+     * @param id el identificador de la entidad "Palabras"
+     * @return la entidad "Palabras" con el identificador dado, o una respuesta de error si no se encuentra
+     */
     @GetMapping("/{id}")
     fun getOneWord(@PathVariable id: String): ResponseEntity<Palabras>{
         val idPalabra: Long = id.toLong()
@@ -34,11 +55,24 @@ class PalabrasController {
         }
     }
 
+
+    /**
+     * Recupera todas las entidades "Palabras".
+     *
+     * @return una lista mutable de todas las entidades "Palabras"
+     */
     private fun allWords(): MutableList<Palabras>?{
         val words = ser.all
         return words
     }
 
+
+    /**
+     * Obtiene todas las entidades "Palabras" que tienen un número específico de letras.
+     *
+     * @param numletras el número de letras de las palabras a recuperar
+     * @return una lista mutable de todas las entidades "Palabras" con el número dado de letras
+     */
     @GetMapping("/num{numletras}")
     fun allNum(@PathVariable numletras: String): ResponseEntity<MutableList<Palabras>> {
         val cantidad = numletras.toInt()
@@ -55,6 +89,12 @@ class PalabrasController {
 
 
 
+    /**
+     * Elimina una entidad "Palabras" por su identificador.
+     *
+     * @param id el identificador de la entidad "Palabras" a eliminar
+     * @return un mensaje indicando el resultado de la operación de eliminación
+     */
     @DeleteMapping("/{id}")
     fun deleteOneWord(@PathVariable id: Long): ResponseEntity<String> {
         ser.delete(id)
@@ -66,6 +106,13 @@ class PalabrasController {
         }
     }
 
+
+    /**
+     * Inserta una nueva entidad "Palabras".
+     *
+     * @param palabra la entidad "Palabras" a insertar
+     * @return un mensaje indicando el resultado de la operación de inserción
+     */
     @PostMapping("/")
     fun insertWord(@RequestBody palabra: Palabras): ResponseEntity<String> {
         val word = ser.save(palabra)
@@ -76,6 +123,13 @@ class PalabrasController {
         }
     }
 
+
+    /**
+     * Actualiza una entidad "Palabras" existente.
+     *
+     * @param palabra la entidad "Palabras" a actualizar
+     * @return un mensaje indicando el resultado de la operación de actualización
+     */
     @PutMapping("/")
     fun updateWord(@RequestBody palabra: Palabras): ResponseEntity<String> {
         val word = ser.save(palabra)
