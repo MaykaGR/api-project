@@ -130,7 +130,7 @@ class PalabrasController {
      * @param palabra la entidad "Palabras" a actualizar
      * @return un mensaje indicando el resultado de la operación de actualización
      */
-    @PutMapping("/")
+    @PutMapping("/{id}")
     fun updateWord(@RequestBody palabra: Palabras): ResponseEntity<String> {
         val word = ser.save(palabra)
         if(word!=null){
