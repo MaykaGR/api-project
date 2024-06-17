@@ -104,7 +104,9 @@ class UsuariosController {
     fun updateUser(@RequestBody user: Usuarios, @PathVariable id: String): ResponseEntity<String>{
         val idUser = id.toLong()
         var modification = ser[idUser]
-        if(getOneUser(user.id.toString())==ResponseEntity<Usuarios>(user, HttpStatus.OK)){
+        var response = getOneUser(id)
+        //println(response.statusCode)
+        if(response==ResponseEntity<Usuarios>(response.body, HttpStatus.OK)){
             modification = user
             val usuario = ser.save(modification)
             if(usuario!=null){
